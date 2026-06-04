@@ -1,0 +1,40 @@
+h1 {
+  display: inline-block;
+  background: linear-gradient(135deg, #44a9fd, #a110b8);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 16px 16px 0 16px;
+  font-size: 48px;
+  font-weight: 700;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-style: italic;
+  line-height: 48px;
+  width: fit-content;
+}
+h2 {
+  display: inline-block;
+  background: linear-gradient(90deg, #f3f3f3, #c8cdd5);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 16px 16px 16px;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-style: italic;
+  font-size: 36px;
+  line-height: 36px;
+  width: fit-content;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+  justify-content: center;
+  background: linear-gradient(90deg, #050d22, #1a0e44);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #111833;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}

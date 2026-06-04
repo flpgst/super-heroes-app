@@ -5,10 +5,11 @@ import { ColorService, CssNamedColor } from '../../services/color.service';
 import { NgStyle } from '@angular/common';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { LoadingBarComponent } from '../loading-bar/loading-bar.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-content',
-  imports: [NgStyle, SearchBarComponent, LoadingBarComponent],
+  imports: [NgStyle, SearchBarComponent, LoadingBarComponent, RouterLink],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css',
 })

@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'super-hero',
+    path: 'super-hero/:slug',
     component: SuperHeroComponent,
   },
 ];

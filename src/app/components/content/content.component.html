@@ -1,0 +1,16 @@
+<app-search-bar (onSearchEvent)="onSearch($event)" ></app-search-bar>
+<div class="row" >
+@for(superHero of superHeroes; track superHero.id) {
+    <div [ngStyle]="{'background-color': backgroundColors[superHero.id]}" class="page-card">
+        <div class="card-content">
+            <div class="card-header">
+                <h2>{{ superHero.name }}</h2>
+                <div class="card-chip" [ngStyle]="{'background-color': superHero.biography.alignment === 'good'? 'green': 'red' }">{{ superHero.biography.alignment }}</div>
+            </div>
+            <div class="card-img"><img [src]="superHero.images.md" [alt]="superHero.name"></div>
+        </div>    
+            
+          
+    </div>
+}
+</div>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "historia-herois-angular": {
+    "super-heroes-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/historia-herois-angular",
+            "outputPath": "dist/super-heroes-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "historia-herois-angular:build:production"
+              "buildTarget": "super-heroes-app:build:production"
             },
             "development": {
-              "buildTarget": "historia-herois-angular:build:development"
+              "buildTarget": "super-heroes-app:build:development"
             }
           },
           "defaultConfiguration": "development"

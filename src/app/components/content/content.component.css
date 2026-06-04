@@ -16,13 +16,12 @@
 .card-content {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 4px rgba(201, 201, 201, 0.5);
   border: 2px solid #eee;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
   border-radius: 8px;
-  box-shadow: 2px 2px 4px #aaa;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -38,7 +37,7 @@
   background-color: rgba(10, 10, 10, 0.8);
   color: white;
   z-index: 1;
-  padding-bottom: 32px;
+  padding-bottom: 48px;
 
   h1,
   h2 {
@@ -59,6 +58,46 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
+}
+
+.card-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.card-stat-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+  font-family: "Arial", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.card-stat-track {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.card-stat-fill {
+  width: var(--stat-value);
+  height: 100%;
+  border-radius: inherit;
+  animation: stat-bar-entry 0.8s ease-out both;
+}
+
+@keyframes stat-bar-entry {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--stat-value);
+  }
 }
 
 .card-img {

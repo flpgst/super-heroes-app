@@ -20,11 +20,72 @@
               {{ superHero.biography.alignment }}
             </div>
           </div>
-          <div>
-            <p>Intelligence: {{ superHero.powerstats.intelligence }}</p>
-            <p>Strength: {{ superHero.powerstats.strength }}</p>
-            <p>Speed: {{ superHero.powerstats.speed }}</p>
-            <p>Power: {{ superHero.powerstats.power }}</p>
+          <div class="card-stats-list">
+            <div class="card-stat">
+              <div class="card-stat-label">
+                <span>Intelligence</span>
+                <span>{{ superHero.powerstats.intelligence }}</span>
+              </div>
+              <div class="card-stat-track">
+                <div
+                  class="card-stat-fill"
+                  [style.--stat-value]="
+                    superHero.powerstats.intelligence + '%'
+                  "
+                  [ngStyle]="{
+                    'background-color': backgroundColors[superHero.id],
+                  }"
+                ></div>
+              </div>
+            </div>
+
+            <div class="card-stat">
+              <div class="card-stat-label">
+                <span>Strength</span>
+                <span>{{ superHero.powerstats.strength }}</span>
+              </div>
+              <div class="card-stat-track">
+                <div
+                  class="card-stat-fill"
+                  [style.--stat-value]="superHero.powerstats.strength + '%'"
+                  [ngStyle]="{
+                    'background-color': backgroundColors[superHero.id],
+                  }"
+                ></div>
+              </div>
+            </div>
+
+            <div class="card-stat">
+              <div class="card-stat-label">
+                <span>Speed</span>
+                <span>{{ superHero.powerstats.speed }}</span>
+              </div>
+              <div class="card-stat-track">
+                <div
+                  class="card-stat-fill"
+                  [style.--stat-value]="superHero.powerstats.speed + '%'"
+                  [ngStyle]="{
+                    'background-color': backgroundColors[superHero.id],
+                  }"
+                ></div>
+              </div>
+            </div>
+
+            <div class="card-stat">
+              <div class="card-stat-label">
+                <span>Power</span>
+                <span>{{ superHero.powerstats.power }}</span>
+              </div>
+              <div class="card-stat-track">
+                <div
+                  class="card-stat-fill"
+                  [style.--stat-value]="superHero.powerstats.power + '%'"
+                  [ngStyle]="{
+                    'background-color': backgroundColors[superHero.id],
+                  }"
+                ></div>
+              </div>
+            </div>
           </div>
         </div>
         <div

@@ -1,4 +1,258 @@
-<h1>{{ superHero?.name }}</h1>
-<div class="card-img">
-  <img [src]="superHero?.images?.lg" [alt]="superHero?.name" />
-</div>
+@if (loading) {
+  <main class="hero-page hero-state">
+    <div class="state-panel">
+      <span class="state-kicker">Loading profile</span>
+      <div class="loading-track">
+        <span></span>
+      </div>
+    </div>
+  </main>
+} @else if (error || !superHero) {
+  <main class="hero-page hero-state">
+    <div class="state-panel">
+      <span class="state-kicker">Profile unavailable</span>
+      <h1>Hero not found</h1>
+      <a routerLink="/" class="action-button primary">Back to gallery</a>
+    </div>
+  </main>
+} @else {
+  <main class="hero-page">
+    <section class="hero-spotlight">
+      <div class="hero-art">
+        <img [src]="superHero.images.lg" [alt]="superHero.name" />
+      </div>
+
+      <div class="hero-copy">
+        <a routerLink="/" class="back-link">Back to gallery</a>
+        <h1>{{ superHero.name }}</h1>
+
+        <div class="identity-grid">
+          <div class="identity-card">
+            <strong>{{ getDisplayValue(superHero.biography.fullName) }}</strong>
+            <span>Full name</span>
+          </div>
+          <div class="identity-card">
+            <strong>ID {{ superHero.id }}</strong>
+            <span>Registry</span>
+          </div>
+          <div class="identity-card wide">
+            <strong>{{ superHero.slug }}</strong>
+            <span>Slug</span>
+          </div>
+          <div
+            class="identity-card alignment"
+            [class.good]="getAlignmentClass() === 'good'"
+            [class.bad]="getAlignmentClass() === 'bad'"
+            [class.neutral]="getAlignmentClass() === 'neutral'"
+          >
+            <strong>{{ getAlignmentLabel() }}</strong>
+            <span>Alignment</span>
+          </div>
+          <div class="identity-card species">
+            <strong>{{ getDisplayValue(superHero.appearance.race) }}</strong>
+            <span>Race / type</span>
+          </div>
+        </div>
+
+        <p class="hero-summary">
+          {{ superHero.name }} belongs to the
+          {{ getDisplayValue(superHero.biography.publisher) }} universe. Their
+          first appearance was in
+          {{ getDisplayValue(superHero.biography.firstAppearance) }}, with an
+          operational base in {{ getDisplayValue(superHero.work.base) }}.
+        </p>
+
+        <div class="hero-actions">
+          <a routerLink="/" class="action-button primary">Back</a>
+          <button class="action-button secondary" type="button">
+            Favorite
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <article class="panel power-panel">
+        <header>
+          <span class="panel-icon">01</span>
+          <h2>Powerstats</h2>
+        </header>
+
+        <div class="stats-list">
+          @for (stat of statItems; track stat.key) {
+            <div class="stat-row">
+              <div class="stat-label">
+                <span>{{ stat.label }}</span>
+                <strong>{{ getStatValue(stat.key) }}</strong>
+              </div>
+              <div class="stat-track">
+                <span [style.width.%]="getStatValue(stat.key)"></span>
+              </div>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article class="panel">
+        <header>
+          <span class="panel-icon">02</span>
+          <h2>Appearance</h2>
+        </header>
+
+        <dl class="data-list">
+          <div>
+            <dt>Gender</dt>
+            <dd>{{ getDisplayValue(superHero.appearance.gender) }}</dd>
+          </div>
+          <div>
+            <dt>Height</dt>
+            <dd>{{ getDisplayValue(superHero.appearance.height) }}</dd>
+          </div>
+          <div>
+            <dt>Weight</dt>
+            <dd>{{ getDisplayValue(superHero.appearance.weight) }}</dd>
+          </div>
+          <div>
+            <dt>Eyes</dt>
+            <dd>{{ getDisplayValue(superHero.appearance.eyeColor) }}</dd>
+          </div>
+          <div>
+            <dt>Hair</dt>
+            <dd>{{ getDisplayValue(superHero.appearance.hairColor) }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="panel biography-panel">
+        <header>
+          <span class="panel-icon">03</span>
+          <h2>Biography</h2>
+        </header>
+
+        <dl class="data-list two-column">
+          <div>
+            <dt>Full name</dt>
+            <dd>{{ getDisplayValue(superHero.biography.fullName) }}</dd>
+          </div>
+          <div>
+            <dt>Alter egos</dt>
+            <dd>{{ getDisplayValue(superHero.biography.alterEgos) }}</dd>
+          </div>
+          <div>
+            <dt>Aliases</dt>
+            <dd>{{ getDisplayValue(superHero.biography.aliases) }}</dd>
+          </div>
+          <div>
+            <dt>Birthplace</dt>
+            <dd>{{ getDisplayValue(superHero.biography.placeOfBirth) }}</dd>
+          </div>
+          <div>
+            <dt>Publisher</dt>
+            <dd>{{ getDisplayValue(superHero.biography.publisher) }}</dd>
+          </div>
+          <div>
+            <dt>Alignment</dt>
+            <dd class="accent">{{ getAlignmentLabel() }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="panel">
+        <header>
+          <span class="panel-icon">04</span>
+          <h2>Status</h2>
+        </header>
+
+        <dl class="data-list">
+          <div>
+            <dt>Threat level</dt>
+            <dd class="accent">{{ getThreatLevel() }}</dd>
+          </div>
+          <div>
+            <dt>Overall average</dt>
+            <dd>{{ getAveragePower() }}</dd>
+          </div>
+          <div>
+            <dt>Base</dt>
+            <dd>{{ getDisplayValue(superHero.work.base) }}</dd>
+          </div>
+          <div>
+            <dt>Universe</dt>
+            <dd>{{ getDisplayValue(superHero.biography.publisher) }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="panel work-panel">
+        <header>
+          <span class="panel-icon">05</span>
+          <h2>Work</h2>
+        </header>
+
+        <dl class="data-list">
+          <div>
+            <dt>Occupation</dt>
+            <dd>{{ getDisplayValue(superHero.work.occupation) }}</dd>
+          </div>
+          <div>
+            <dt>Base</dt>
+            <dd>{{ getDisplayValue(superHero.work.base) }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="panel">
+        <header>
+          <span class="panel-icon">06</span>
+          <h2>Connections</h2>
+        </header>
+
+        <dl class="data-list">
+          <div>
+            <dt>Affiliation</dt>
+            <dd>
+              {{ getDisplayValue(superHero.connections.groupAffiliation) }}
+            </dd>
+          </div>
+          <div>
+            <dt>Relatives</dt>
+            <dd>{{ getDisplayValue(superHero.connections.relatives) }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="panel radar-panel">
+        <header>
+          <span class="panel-icon">07</span>
+          <h2>Quick summary</h2>
+        </header>
+
+        <div class="radar-layout">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Attribute summary">
+            <polygon
+              class="radar-grid outer"
+              points="50,12 82.9,31 82.9,69 50,88 17.1,69 17.1,31"
+            />
+            <polygon
+              class="radar-grid inner"
+              points="50,28 69,39 69,61 50,72 31,61 31,39"
+            />
+            <line x1="50" y1="12" x2="50" y2="88" />
+            <line x1="17.1" y1="31" x2="82.9" y2="69" />
+            <line x1="82.9" y1="31" x2="17.1" y2="69" />
+            <polygon class="radar-shape" [attr.points]="getRadarPoints()" />
+          </svg>
+
+          <div class="radar-values">
+            @for (stat of statItems; track stat.key) {
+              <div>
+                <span>{{ stat.label }}</span>
+                <strong>{{ getStatValue(stat.key) }}</strong>
+              </div>
+            }
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+}

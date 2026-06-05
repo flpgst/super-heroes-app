@@ -21,7 +21,7 @@ export type Powerstats = {
 
 export type Appearance = {
   gender: string;
-  race: string;
+  race: string | null;
   height: string[];
   weight: string[];
   eyeColor: string;

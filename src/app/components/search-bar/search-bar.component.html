@@ -1,2 +1,13 @@
- <input type="text" placeholder="Search..." [(ngModel)]="query" class="search-input" (keyup.enter)="onSearch(query)">
-<button class="search-button" (click)="onSearch(query)">Search</button>
+<div class="search-control">
+  <span aria-hidden="true">⌕</span>
+  <input
+    type="text"
+    placeholder="Search heroes..."
+    [(ngModel)]="query"
+    class="search-input"
+    (keyup.enter)="onSearch(query)"
+  />
+  <button class="search-button" (click)="onSearch(query)" type="button">
+    Search
+  </button>
+</div>

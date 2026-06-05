@@ -1,100 +1,139 @@
-<app-search-bar (onSearchEvent)="onSearch($event)"></app-search-bar>
-<app-loading-bar [loading]="loading"></app-loading-bar>
-<div class="row">
-  @for (superHero of superHeroes; track superHero.id) {
-    <div [routerLink]="['/super-hero', superHero.slug]" class="page-card">
-      <div class="card-content">
-        <div class="card-img">
-          <img [src]="superHero.images.md" [alt]="superHero.name" />
-        </div>
-        <div class="card-stats">
-          <div class="card-stats-header">
-            <h2>{{ superHero.name }}</h2>
-            <div
-              class="card-chip"
-              [ngStyle]="{
-                'background-color':
-                  superHero.biography.alignment === 'good' ? 'green' : 'red',
-              }"
-            >
-              {{ superHero.biography.alignment }}
-            </div>
-          </div>
-          <div class="card-stats-list">
-            <div class="card-stat">
-              <div class="card-stat-label">
-                <span>Intelligence</span>
-                <span>{{ superHero.powerstats.intelligence }}</span>
-              </div>
-              <div class="card-stat-track">
-                <div
-                  class="card-stat-fill"
-                  [style.--stat-value]="
-                    superHero.powerstats.intelligence + '%'
-                  "
-                  [ngStyle]="{
-                    'background-color': backgroundColors[superHero.id],
-                  }"
-                ></div>
-              </div>
-            </div>
-
-            <div class="card-stat">
-              <div class="card-stat-label">
-                <span>Strength</span>
-                <span>{{ superHero.powerstats.strength }}</span>
-              </div>
-              <div class="card-stat-track">
-                <div
-                  class="card-stat-fill"
-                  [style.--stat-value]="superHero.powerstats.strength + '%'"
-                  [ngStyle]="{
-                    'background-color': backgroundColors[superHero.id],
-                  }"
-                ></div>
-              </div>
-            </div>
-
-            <div class="card-stat">
-              <div class="card-stat-label">
-                <span>Speed</span>
-                <span>{{ superHero.powerstats.speed }}</span>
-              </div>
-              <div class="card-stat-track">
-                <div
-                  class="card-stat-fill"
-                  [style.--stat-value]="superHero.powerstats.speed + '%'"
-                  [ngStyle]="{
-                    'background-color': backgroundColors[superHero.id],
-                  }"
-                ></div>
-              </div>
-            </div>
-
-            <div class="card-stat">
-              <div class="card-stat-label">
-                <span>Power</span>
-                <span>{{ superHero.powerstats.power }}</span>
-              </div>
-              <div class="card-stat-track">
-                <div
-                  class="card-stat-fill"
-                  [style.--stat-value]="superHero.powerstats.power + '%'"
-                  [ngStyle]="{
-                    'background-color': backgroundColors[superHero.id],
-                  }"
-                ></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="card-details-btn"
-          [ngStyle]="{ 'background-color': backgroundColors[superHero.id] }"
-        >
-          See Details
-        </div>
-      </div>
+<main class="gallery-shell">
+  <section class="gallery-hero" aria-label="Superhero gallery">
+    <div class="hero-copy">
+      <p>Gallery of</p>
+      <h1>Superheroes</h1>
+      <span>
+        Explore the multiverse and meet the heroes who protect realities,
+        inspire generations, and defy the impossible.
+      </span>
     </div>
-  }
-</div>
+
+    <div class="hero-showcase" aria-hidden="true">
+      @for (
+        superHero of superHeroes.slice(0, 4);
+        track superHero.id;
+        let i = $index
+      ) {
+        <img
+          [class.lead]="i === 0"
+          [src]="superHero.images.lg"
+          [alt]="superHero.name"
+        />
+      }
+    </div>
+  </section>
+
+  <section class="gallery-controls" aria-label="Gallery controls">
+    <div class="filter-group" aria-label="Filters">
+      <button class="active" type="button">▦ All</button>
+      <button type="button">⬟ Heroes</button>
+      <button type="button">☠ Villains</button>
+      <button type="button">△ Neutrals</button>
+    </div>
+
+    <div class="search-sort">
+      <app-search-bar (onSearchEvent)="onSearch($event)"></app-search-bar>
+    </div>
+  </section>
+
+  <app-loading-bar [loading]="loading"></app-loading-bar>
+
+  <section id="heroes-grid" class="row">
+    @for (superHero of superHeroes; track superHero.id) {
+      <article
+        [routerLink]="['/super-hero', superHero.slug]"
+        class="page-card"
+        [style.--accent]="getAccentColor(superHero.id)"
+        [style.--accent-soft]="getAccentSoftColor(superHero.id)"
+      >
+        <div class="card-content">
+          <div class="card-badge">
+            {{ getAlignmentIcon(superHero.biography.alignment) }}
+            <span>{{ superHero.biography.alignment }}</span>
+          </div>
+
+          <div class="card-img">
+            <img [src]="superHero.images.md" [alt]="superHero.name" />
+          </div>
+
+          <div class="card-stats">
+            <div class="card-stats-header">
+              <h2>{{ superHero.name }}</h2>
+              <div class="card-chip">
+                {{ superHero.appearance.race ?? "Unknown" }}
+              </div>
+            </div>
+            <div class="card-stats-list">
+              <div class="card-stat">
+                <div class="card-stat-label">
+                  <span>Intelligence</span>
+                </div>
+                <div class="card-stat-track">
+                  <div
+                    class="card-stat-fill"
+                    [style.--stat-value]="
+                      superHero.powerstats.intelligence + '%'
+                    "
+                    [ngStyle]="{
+                      'background-color': backgroundColors[superHero.id],
+                    }"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="card-stat">
+                <div class="card-stat-label">
+                  <span>Strength</span>
+                </div>
+                <div class="card-stat-track">
+                  <div
+                    class="card-stat-fill"
+                    [style.--stat-value]="superHero.powerstats.strength + '%'"
+                    [ngStyle]="{
+                      'background-color': backgroundColors[superHero.id],
+                    }"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="card-stat">
+                <div class="card-stat-label">
+                  <span>Speed</span>
+                </div>
+                <div class="card-stat-track">
+                  <div
+                    class="card-stat-fill"
+                    [style.--stat-value]="superHero.powerstats.speed + '%'"
+                    [ngStyle]="{
+                      'background-color': backgroundColors[superHero.id],
+                    }"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="card-stat">
+                <div class="card-stat-label">
+                  <span>Power</span>
+                </div>
+                <div class="card-stat-track">
+                  <div
+                    class="card-stat-fill"
+                    [style.--stat-value]="superHero.powerstats.power + '%'"
+                    [ngStyle]="{
+                      'background-color': backgroundColors[superHero.id],
+                    }"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-details-btn">
+            <span>View details</span>
+            <span>→</span>
+          </div>
+        </div>
+      </article>
+    }
+  </section>
+</main>

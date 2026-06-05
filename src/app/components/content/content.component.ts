@@ -21,6 +21,38 @@ export class ContentComponent {
   backgroundColors: CssNamedColor[] = [];
   loading = true;
 
+  private readonly accentColors = [
+    '#167dff',
+    '#9c43df',
+    '#ec3c3c',
+    '#68c75a',
+    '#d69a12',
+    '#0aa7c0',
+    '#e95b17',
+    '#315dce',
+    '#d83287',
+  ];
+
+  getAccentColor(id: number): string {
+    return this.accentColors[id % this.accentColors.length];
+  }
+
+  getAccentSoftColor(id: number): string {
+    return `${this.getAccentColor(id)}33`;
+  }
+
+  getAlignmentIcon(alignment: string): string {
+    if (alignment === 'bad') {
+      return '☠';
+    }
+
+    if (alignment === 'neutral') {
+      return '△';
+    }
+
+    return '⬟';
+  }
+
   onSearch(query: string): void {
     this.loading = true;
     this.httpService.findByName(query).subscribe({

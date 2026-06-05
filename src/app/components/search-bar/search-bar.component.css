@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.search-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 370px);
+  height: 44px;
+  padding-left: 15px;
+  border: 1px solid rgba(116, 142, 186, 0.34);
+  border-radius: 6px;
+  color: #dbe6f8;
+  background: rgba(11, 19, 34, 0.84);
+}
+
+.search-control:hover {
+  border-color: rgba(37, 125, 255, 0.72);
+}
+
+.search-input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  color: #edf4ff;
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #8796ad;
+}
+
+.search-button {
+  align-self: stretch;
+  padding: 0 16px;
+  border: 0;
+  border-left: 1px solid rgba(116, 142, 186, 0.28);
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+  background: rgba(15, 126, 255, 0.82);
+}
